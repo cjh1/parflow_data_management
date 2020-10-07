@@ -74,6 +74,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "django_celery_beat",
+    "rest_framework"
 ]
 
 LOCAL_APPS = [
