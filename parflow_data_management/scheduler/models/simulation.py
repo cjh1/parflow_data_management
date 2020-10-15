@@ -3,9 +3,7 @@ from django_extensions.db.models import TimeStampedModel
 from django.db import models
 
 from .project import Project
+from .project_asset import ProjectAsset
 
-
-class Simulation(TimeStampedModel, models.Model):
-    project = models.ForeignKey(
-        Project, on_delete=models.CASCADE, related_name="simulations"
-    )
+class Simulation(TimeStampedModel, ProjectAsset):
+    pass
