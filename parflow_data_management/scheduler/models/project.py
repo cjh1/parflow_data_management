@@ -4,4 +4,4 @@ from django.db import models
 
 class Project(TimeStampedModel, models.Model):
     owner = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
-    # TODO: files,
+    # TODO: more fields,
