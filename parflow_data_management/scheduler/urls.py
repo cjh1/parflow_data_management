@@ -1,12 +1,13 @@
 from django.urls import include, path
 from rest_framework import routers
-from .rest import project, simulation, mesh, conceptual_model
+from .rest import project, simulation, mesh, conceptual_model, metadata
 
 router = routers.DefaultRouter()
 router.register(r'projects', project.ProjectViewSet)
 router.register(r'simulations', simulation.SimulationViewSet)
 router.register(r'meshs', mesh.MeshViewSet)
 router.register(r'conceptual_models', conceptual_model.ConceptualModelViewSet)
+router.register(r'metadatas', metadata.MetadataViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
