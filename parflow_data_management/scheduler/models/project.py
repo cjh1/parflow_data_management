@@ -4,5 +4,5 @@ from django.db import models
 
 
 class Project(TimeStampedModel, models.Model):
-    owner = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    owner = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="projects")
     # TODO: more fields,
