@@ -74,7 +74,8 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "django_celery_beat",
-    "rest_framework"
+    "rest_framework",
+    "guardian"
 ]
 
 LOCAL_APPS = [
@@ -95,6 +96,7 @@ MIGRATION_MODULES = {"sites": "parflow_data_management.contrib.sites.migrations"
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
+    'guardian.backends.ObjectPermissionBackend'
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
