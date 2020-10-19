@@ -68,5 +68,6 @@ CELERY_TASK_EAGER_PROPAGATES = True
 # django-allauth
 # ------------------------------------------------------------------------------
 ACCOUNT_EMAIL_VERIFICATION = "optional"
+ACCOUNT_EMAIL_REQUIRED = False
 # Your stuff...
 # ------------------------------------------------------------------------------
