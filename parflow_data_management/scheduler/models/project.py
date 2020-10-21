@@ -12,5 +12,7 @@ class Project(TimeStampedModel, models.Model):
 @receiver(models.signals.post_save, sender=Project)
 def _project_post_save(sender, instance, created, *args, **kwargs):
     if created:
+        assign_perm("scheduler.change_project", instance.owner, instance)
         assign_perm("scheduler.delete_project", instance.owner, instance)
+        assign_perm("scheduler.view_project", instance.owner, instance)
         # TODO: group permissions
