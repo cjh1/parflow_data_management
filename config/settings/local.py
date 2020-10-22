@@ -11,17 +11,7 @@ ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-      "ENGINE": "django.db.backends.postgresql_psycopg2",
-      "NAME": env("LOCAL_DATABASE_NAME"),
-      "USER": env("LOCAL_DATABASE_USER"),
-      "PASSWORD": env("LOCAL_DATABASE_PASSWORD"),
-      "HOST": "localhost"
-    }
-}
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
+DATABASES["default"]["HOST"] = "localhost"
 
 # CACHES
 # ------------------------------------------------------------------------------
