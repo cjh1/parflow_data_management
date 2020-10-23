@@ -103,12 +103,12 @@ Note: These instructions are *not* suited for a production environment.
 
 To run the application, first check for any new migrations:
 ```
-./manage.py makemigrations
+./manage.py makemigrations --settings=config.settings.<environment_type>
 ```
 
 Then apply those migrations:
 ```
-./manage.py migrate
+./manage.py migrate --settings=config.settings.<environment_type>
 ```
 
 Then start the application:
