@@ -16,3 +16,4 @@ django-crispy-forms==1.9.2  # https://github.com/django-crispy-forms/django-cris
 django-redis==4.12.1  # https://github.com/jazzband/django-redis
 djangorestframework==3.12.1
 django-guardian==2.3.0
+django_extensions

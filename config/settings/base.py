@@ -82,7 +82,8 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "rest_framework",
-    "guardian"
+    "guardian",
+    "django_extensions"
 ]
 
 LOCAL_APPS = [
