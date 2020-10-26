@@ -60,6 +60,12 @@ Grant the requisite privelages to our new user:
 GRANT ALL PRIVILEGES ON DATABASE <my_db> TO <my_user>;
 ```
 
+If you wish to run tests, an additional permission is required:
+```
+ALTER USER <my_user> CREATEDB;
+```
+This allows Django to create temporary databases when running tests.
+
 Leave the PostgreSQL session:
 ```
 \q
@@ -81,7 +87,7 @@ This keeps sensitive variables like the `DJANGO_SECRET_KEY` from being shared, w
 | ``DATABASE_PASSWORD``    |     Required. Password to the database. `<my_pass>` in the above example. |
 | ``DATABASE_HOST``        |     Optional. IP address that the database is hosted on. Defaults to `localhost` |
 | ``DATABASE_PORT``        |     Optional. Port that the database is hosted on at the above IP address. Defaults to `5432` |
-| ``DJANGO_ALLOWED_HOSTS`` |     Required for production. List of allowed hosts for the application to run on. Default to an empty list for `production`, and `["localhost", "0.0.0.0", "127.0.0.1"]` for `local` environments. Read in as a comma-separated list (e.g. `DJANGO_ALLOWED_HOSTS=host1,host2`) |
+| ``DJANGO_ALLOWED_HOSTS`` |     Required for production and test. List of allowed hosts for the application to run on. Default to `["localhost", "0.0.0.0", "127.0.0.1"]` for `local` environments. Read in as a comma-separated list (e.g. `DJANGO_ALLOWED_HOSTS=host1,host2`) |
 | ``REDIS_URL``            |     Required for production. `<ip:port>` value where ip is the IP address of the Memcached daemon used for cache management, and `port` is the port on which the daemon is running |
 | ``DJANGO_ADMIN_URL``     |     Required for production. URL for admin page. Defaults to `admin/` for local environments. |
 
@@ -118,4 +124,12 @@ Then start the application:
 Where:
 * `IP` is the IP address to host the application. Defaults to `127.0.0.1`.
 * `port` is the corresponding port. Defaults to `8000`.
-* `<environment_type>` is either `local` or `production`, depending on which settings you would like to use. This is similar to python dependency install step above.
+* `<environment_type>` is `local`, `test`, or `production`, depending on which settings you would like to use. This is similar to python dependency install step above.
+
+## Testing
+First, make sure that the DATABASE_USER of your choice, `<my_user>`, has permission to create and remove databases. See the "Creating a PostgreSQL Database" section.
+
+To run the tests, simply run `./manage.py test <test_module> --settings=config.settings.test`. For example, to run the tests in parflow_data_management/scheduler/tests/test_permission:
+```
+./manage.py test parflow_data_management.scheduler.tests.test_permissions
+```
