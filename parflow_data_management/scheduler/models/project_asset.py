@@ -10,10 +10,12 @@ class ProjectAsset(models.Model):
     class Meta:
         abstract = True
 
+# Takes a user, a permission, and the project asset object
 def check_project_asset_perm(user, perm, proj_asset):
     # First get the related project
     proj = proj_asset.project
 
     # Check if the user has the corresponding permission
-    # on the parent project
-    return user.has_perm(perm, proj)
+    # on the parent project.
+    # Note that we assume the structure of the permission
+    return user.has_perm(perm + "_project", proj)
