@@ -17,3 +17,4 @@ django-redis==4.12.1  # https://github.com/jazzband/django-redis
 djangorestframework==3.12.1
 django-guardian==2.3.0
 django_extensions
+drf-yasg==1.20.0
