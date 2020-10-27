@@ -12,7 +12,7 @@ class ProjectAsset(models.Model):
         # Remove default permissions for project assets.
         # This will prevent them from getting confused with the
         # project level permissions
-        default_permissions = ()
+        default_permissions = []
 
 # Takes a user, a permission, and the project asset object
 def check_project_asset_perm(user, perm, proj_asset):
