@@ -9,6 +9,9 @@ These can all be installed via package manager. For Ubuntu, use the following co
 sudo apt install python-dev libpq-dev postgresql postgresql-contrib
 ```
 
+### Redis
+Redis is used by Django channels as a back-end for communicating between instances. Unfortunately, the version available through `apt` is out of date (version >= 5.0 is required). For linux, installation instructions can be found at https://redis.io/download#installation.
+
 ### Python Packages
 Several Python packages are required. They can easy be installed using `pip` and one of the requirements files in the `requirements` subdirectory.
 
@@ -75,6 +78,9 @@ Switch out of the `postgres` user's bash session:
 ```
 exit
 ```
+
+## Setting up a redis server
+To run a redis server, navigate to the install directory from the instructions above and run `src/redis-server`.
 
 ## Passing Sensitive Settings Variables to Django via .env File
 It's convention to store any sensitive configuration data required by Django in a `.env` file in the project root.

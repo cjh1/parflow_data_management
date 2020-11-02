@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import authorized_key, key_pair
 
-# Register your models here.
+admin.site.register(authorized_key.AuthorizedKey)
+admin.site.register(key_pair.KeyPair)

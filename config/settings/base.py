@@ -66,6 +66,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # APPS
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
+    "channels",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -76,9 +77,9 @@ DJANGO_APPS = [
     "django.contrib.admin",
     "django.forms",
     "django_extensions",
+    "drf_yasg",
     "guardian",
     "rest_framework",
-    "drf_yasg",
 ]
 
 THIRD_PARTY_APPS = [
@@ -269,5 +270,24 @@ LOGGING = {
 }
 
 
-# Your stuff...
+# CHANNELS
 # ------------------------------------------------------------------------------
+ASGI_APPLICATION = 'config.asgi.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
+# REST_FRAMEWORK
+# ------------------------------------------------------------------------------
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication'
+    ]
+}
+# CELERY
+# ------------------------------------------------------------------------------
+CELERY_BROKER_URL = 'amqp://127.0.0.1:5672'
