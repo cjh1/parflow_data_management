@@ -14,6 +14,7 @@ class ProjectAsset(models.Model):
         # project level permissions
         default_permissions = []
 
+
 # Takes a user, a permission, and the project asset object
 def check_project_asset_perm(user, perm, proj_asset):
     # First get the related project
