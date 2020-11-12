@@ -1,0 +1,55 @@
+<html>
+<label for="key-field">Public Key:</label>
+<textarea id="key-field" cols="100" rows="8" readonly></textarea><br>
+
+<label for="passphrase-field">Passphrase:</label>
+<textarea id="passphrase-field" cols="100" rows="1" readonly></textarea><br>
+
+<label for="key-id-field">Key ID:</label>
+<textarea id="key-id-field" cols="100" rows="1" readonly></textarea><br>
+
+<input id="generate_button_id" type="submit" class="btn" value="Generate" name="generate_button_name"/>
+<script>
+  var generated_csrf_token = "{{ csrf_token }}";
+
+  const keySocket = new WebSocket(
+      'ws://'
+      + window.location.host
+      + '/ws/keygen/'
+  );
+
+  document.getElementById("generate_button_id").onclick = function() {
+    console.log("Generate button was clicked")
+    fetch("/keypairs/", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        "X-CSRFToken": generated_csrf_token,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+      }
+
+    })
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      console.log("Received id", data, "from fetch")
+      document.querySelector('#key-id-field').value = data
+    })
+  }
+
+  keySocket.onmessage = function(e) {
+      console.log("Receiving message")
+      const data = JSON.parse(e.data);
+      document.querySelector('#key-field').value = (data.data.public_key);
+      document.querySelector('#passphrase-field').value = (data.data.passphrase);
+  };
+
+  keySocket.onclose = function(e) {
+      console.error('Key socket closed unexpectedly');
+  };
+
+</script>
+</html>
