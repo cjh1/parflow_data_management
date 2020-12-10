@@ -39,12 +39,8 @@ class PermissionTestCase(TestCase):
 
         # Transferable admin related privelages
         self.assertTrue(test_user.has_perm("can_give_admin_project", test_project))
-        self.assertTrue(test_user.has_perm("can_remove_admin_project", test_project))
         self.assertTrue(
             test_user.has_perm("can_give_transferable_admin_project", test_project)
-        )
-        self.assertTrue(
-            test_user.has_perm("can_remove_transferable_admin_project", test_project)
         )
 
     def test_project_asset_permissions(self):
@@ -67,9 +63,7 @@ class PermissionTestCase(TestCase):
             "delete",
             "view",
             "can_give_admin",
-            "can_remove_admin",
             "can_give_transferable_admin",
-            "can_remove_transferable_admin",
         ]:
             self.assertTrue(
                 check_project_asset_perm(test_user, perm, test_concep_model)

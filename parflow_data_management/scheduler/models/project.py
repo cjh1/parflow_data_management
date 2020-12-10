@@ -17,9 +17,7 @@ class Project(TimeStampedModel, models.Model):
     class Meta:
         permissions = [
             ("can_give_admin_project", "Can give others full access"),
-            ("can_remove_admin_project", "Can revoke full access"),
             ("can_give_transferable_admin_project", "Can give others transferable full access"),
-            ("can_remove_transferable_admin_project", "Can revoke transferable full access"),
         ]
 
 
@@ -33,6 +31,4 @@ def _project_post_save(sender, instance, created, *args, **kwargs):
 
         # Giving / revoking admin
         assign_perm("scheduler.can_give_admin_project", instance.owner, instance)
-        assign_perm("scheduler.can_remove_admin_project", instance.owner, instance)
         assign_perm("scheduler.can_give_transferable_admin_project", instance.owner, instance)
-        assign_perm("scheduler.can_remove_transferable_admin_project", instance.owner, instance)
