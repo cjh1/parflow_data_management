@@ -33,9 +33,19 @@ class PermissionTestCase(TestCase):
         test_project = Project.objects.get(name="test_project")
 
         # Check the user has the correct permissions on the project
-        self.assertTrue(test_user.has_perm("scheduler.change_project", test_project))
-        self.assertTrue(test_user.has_perm("scheduler.delete_project", test_project))
-        self.assertTrue(test_user.has_perm("scheduler.view_project", test_project))
+        self.assertTrue(test_user.has_perm("change_project", test_project))
+        self.assertTrue(test_user.has_perm("delete_project", test_project))
+        self.assertTrue(test_user.has_perm("view_project", test_project))
+
+        # Transferable admin related privelages
+        self.assertTrue(test_user.has_perm("can_give_admin_project", test_project))
+        self.assertTrue(test_user.has_perm("can_remove_admin_project", test_project))
+        self.assertTrue(
+            test_user.has_perm("can_give_transferable_admin_project", test_project)
+        )
+        self.assertTrue(
+            test_user.has_perm("can_remove_transferable_admin_project", test_project)
+        )
 
     def test_project_asset_permissions(self):
         # Get the user
@@ -52,8 +62,18 @@ class PermissionTestCase(TestCase):
         test_simulation = Simulation.objects.get(project=test_project)
 
         # Check the user has the correct permissions on the project asset
-        for perm in ["change", "delete", "view"]:
-            self.assertTrue(check_project_asset_perm(test_user, perm, test_concep_model))
+        for perm in [
+            "change",
+            "delete",
+            "view",
+            "can_give_admin",
+            "can_remove_admin",
+            "can_give_transferable_admin",
+            "can_remove_transferable_admin",
+        ]:
+            self.assertTrue(
+                check_project_asset_perm(test_user, perm, test_concep_model)
+            )
             self.assertTrue(check_project_asset_perm(test_user, perm, test_mesh))
             self.assertTrue(check_project_asset_perm(test_user, perm, test_metadata))
             self.assertTrue(check_project_asset_perm(test_user, perm, test_simulation))
