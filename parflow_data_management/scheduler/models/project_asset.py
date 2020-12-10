@@ -1,10 +1,11 @@
 from django.db import models
-from .project import Project
+from django_extensions.db.models import TimeStampedModel
 
+from .project import Project
 
 # Abstract class encapsulating common data shared by
 # components of a project
-class ProjectAsset(models.Model):
+class ProjectAsset(TimeStampedModel):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="%(class)ss")
 
     class Meta:
@@ -12,7 +13,7 @@ class ProjectAsset(models.Model):
         # Remove default permissions for project assets.
         # This will prevent them from getting confused with the
         # project level permissions
-        default_permissions = []
+        default_permissions = ()
 
 
 # Takes a user, a permission, and the project asset object

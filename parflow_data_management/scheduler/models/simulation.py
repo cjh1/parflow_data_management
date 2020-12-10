@@ -1,6 +1,5 @@
-from django_extensions.db.models import TimeStampedModel
-
 from .project_asset import ProjectAsset
 
-class Simulation(TimeStampedModel, ProjectAsset):
-    pass
+class Simulation(ProjectAsset):
+    class Meta:
+        default_permissions = []
