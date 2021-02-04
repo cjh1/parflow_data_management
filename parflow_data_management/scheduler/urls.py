@@ -14,6 +14,7 @@ from .rest import (
 )
 from .views import (
     cluster_execute_page,
+    register_input_file,
     start_execution,
     start_submit,
     test_simulation_submit,
@@ -48,5 +49,9 @@ urlpatterns = [
     path(
         "clusters/<int:cluster_id>/simulations/<int:simulation_id>/submit/",
         start_submit,
+    ),
+    path(
+        "asset-stores/<int:asset_store_id>/input-files/<int:ifile_id>/register/",
+        register_input_file,
     ),
 ]
