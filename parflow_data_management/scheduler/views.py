@@ -33,7 +33,6 @@ def start_execution(request, cluster_id):
 
     return HttpResponseBadRequest("Private key needs to be unlocked")
 
-
 @api_view(["POST"])
 def start_submit(request, cluster_id, simulation_id):
     if authorized_key_is_unlocked(cluster_id, request.user.id):
@@ -48,9 +47,3 @@ def authorized_key_is_unlocked(cluster_id, owner_id):
         0
     ]
     return auth_key.key_pair.is_unlocked()
-
-
-@api_view(["POST"])
-def register_input_file(asset_store_id, ifile_id):
-    store = AssetStore.objects.filter(pkey=asset_store_id)[0]
-    store.register(ifile_id)
