@@ -49,21 +49,5 @@ class SSHConnection(Connection):
     def __exit__(self, type, value, traceback):
         self._client.close()
 
-    def list_files(self, remote_path, recursive=True, include_dirs=False):
-        ret = list()
-        with self._client.get_transport().open_sftp_client() as sftp:
-            for fileattr in sftp.listdir_attr(remote_path):
-                rel_fname = remote_path + "/" + fileattr.filename
-                print(rel_fname)
-                if stat.S_ISDIR(fileattr.st_mode):
-                    if recursive:
-                        # TODO: relative or absolute path here?
-                        ret += self.list_files(rel_fname, recursive, include_dirs)
-
-                    if include_dirs:
-                        ret.append(rel_fname)
-
-                else:
-                    ret.append(rel_fname)
-
-        return ret
+    def open_sftp(self):
+        return self._client.get_transport().open_sftp_client()
