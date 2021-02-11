@@ -54,7 +54,9 @@ class AssetStore(models.Model):
         if import_path and import_path[0] != "/":
             import_path = "/%s" % import_path
 
-        new_parent = Folder.objects.create(name=import_path.rsplit("/", 1)[1])
+        dir_to_ingest = Folder.objects.create(name=import_path.rsplit("/", 1)[1])
+        self.ingested_dir = dir_to_ingest
+        self.save()
 
         with SSHConnection(self.cluster.id, self.owner.id) as ssh:
-            self._ingest(import_path, new_parent, ssh=ssh)
+            self._ingest(import_path, dir_to_ingest, ssh=ssh)
