@@ -7,6 +7,7 @@ from django.db import models
 from parflow_data_management.scheduler.models.cluster import Cluster
 from parflow_data_management.scheduler.models.file import File
 from parflow_data_management.scheduler.models.folder import Folder
+from parflow_data_management.scheduler.models.simulation import Simulation
 
 from ..connections.ssh_connection import SSHConnection
 
@@ -23,6 +24,14 @@ class AssetStore(models.Model):
     ingested_dir = models.ForeignKey(
         Folder,
         on_delete=models.PROTECT,
+        related_name="asset_stores",
+        blank=True,
+        null=True,
+    )
+
+    simulation = models.ForeignKey(
+        Simulation,
+        on_delete=models.CASCADE,
         related_name="asset_stores",
         blank=True,
         null=True,
