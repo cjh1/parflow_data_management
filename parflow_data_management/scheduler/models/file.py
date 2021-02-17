@@ -4,6 +4,7 @@ from django_extensions.db.models import TimeStampedModel
 
 from .project_asset import ProjectAsset
 from .folder import Folder
+from parflow_data_management.transport.models.asset_store import AssetStore
 
 
 class File(TimeStampedModel):
@@ -18,7 +19,12 @@ class File(TimeStampedModel):
         ],
     )
 
-    folder = models.ForeignKey(Folder, on_delete=models.CASCADE, related_name="files")
+    folder = models.ForeignKey(
+        Folder, on_delete=models.CASCADE, related_name="files"
+    )
+    asset_store = models.ForeignKey(
+        AssetStore, on_delete=models.CASCADE, related_name="files"
+    )
 
     @property
     def abs_path(self):
