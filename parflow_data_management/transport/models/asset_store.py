@@ -1,6 +1,9 @@
 import os
 import stat
 
+import parflow_data_management.scheduler.models as psm
+
+
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -22,8 +25,6 @@ class AssetStore(models.Model):
     # Assumes input data for now
     # TODO: Make this a celery task?
     def _ingest(self, import_path, parent, ssh=None):
-        from parflow_data_management.scheduler.models.file import File
-        from parflow_data_management.scheduler.models.folder import Folder
         ret = list()
         with ssh.open_sftp() as sftp:
             for p in sftp.listdir_iter(path=import_path):
@@ -35,26 +36,23 @@ class AssetStore(models.Model):
 
                 if stat.S_ISDIR(p.st_mode):
                     # Create folder and recurse
-                    new_parent = Folder.objects.create(
+                    new_parent = ps.folder.Folder.objects.create(
                         name=name, parent=parent, asset_store=self
                     )
                     self._ingest(full_path, new_parent, ssh=ssh)
                 else:
                     # Create a file
-                    File.objects.create(
+                    psm.file.File.objects.create(
                         name=name, folder=parent, asset_store=self
                     )
 
     def ingest(self, import_path):
-        from parflow_data_management.scheduler.models.file import File
-        from parflow_data_management.scheduler.models.folder import Folder
-
         import_path = import_path.strip()
 
         if import_path and import_path[0] != "/":
             import_path = "/%s" % import_path
 
-        dir_to_ingest = Folder.objects.create(
+        dir_to_ingest = psm.folder.Folder.objects.create(
             name=import_path.rsplit("/", 1)[1], asset_store=self
         )
 
