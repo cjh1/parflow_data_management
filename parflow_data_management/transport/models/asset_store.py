@@ -37,7 +37,10 @@ class AssetStore(models.Model):
                 if stat.S_ISDIR(p.st_mode):
                     # Create folder and recurse
                     new_parent = ps.folder.Folder.objects.create(
-                        name=name, parent=parent, asset_store=self
+                        name=name,
+                        parent=parent,
+                        asset_store=self,
+                        abs_path=full_path,
                     )
                     self._ingest(full_path, new_parent, ssh=ssh)
                 else:
