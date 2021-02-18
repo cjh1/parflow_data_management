@@ -5,7 +5,6 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 from parflow_data_management.scheduler.models.cluster import Cluster
-from parflow_data_management.scheduler.models.simulation import Simulation
 
 from ..connections.ssh_connection import SSHConnection
 
@@ -18,14 +17,6 @@ class AssetStore(models.Model):
     )
     cluster = models.OneToOneField(
         Cluster, on_delete=models.CASCADE, related_name="asset_store"
-    )
-
-    simulation = models.ForeignKey(
-        Simulation,
-        on_delete=models.CASCADE,
-        related_name="asset_stores",
-        blank=True,
-        null=True,
     )
 
     # Assumes input data for now
