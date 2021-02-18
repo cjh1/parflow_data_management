@@ -22,8 +22,6 @@ class AssetStore(models.Model):
         Cluster, on_delete=models.CASCADE, related_name="asset_store"
     )
 
-    # Assumes input data for now
-    # TODO: Make this a celery task?
     def _ingest(self, import_path, parent, ssh=None):
         ret = list()
         with ssh.open_sftp() as sftp:
