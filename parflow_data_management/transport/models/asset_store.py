@@ -54,7 +54,8 @@ class AssetStore(models.Model):
             import_path = "/%s" % import_path
 
         dir_to_ingest = psm.folder.Folder.objects.create(
-            name=import_path.rsplit("/", 1)[1], asset_store=self
+            name=import_path.rsplit("/", 1)[1], asset_store=self,
+            abs_path=import_path,
         )
 
         with SSHConnection(self.cluster.id, self.owner.id) as ssh:
