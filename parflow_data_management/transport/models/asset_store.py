@@ -34,7 +34,7 @@ class AssetStore(models.Model):
 
                 if stat.S_ISDIR(p.st_mode):
                     # Create folder and recurse
-                    new_parent = ps.folder.Folder.objects.create(
+                    new_parent = psm.folder.Folder.objects.create(
                         name=name,
                         parent=parent,
                         asset_store=self,
